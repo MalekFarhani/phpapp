@@ -1,6 +1,6 @@
 <?php
-include_once 'src/DB_connect.php';
-include_once 'src/library.php';
+include_once 'DB_connect.php';
+include_once 'library.php';
 session_start();
 include_once "DB_connect.php";
 if (!isset($_GET["gid"])) {
@@ -167,7 +167,7 @@ $processed_release_date = date("d F,Y", strtotime($raw_release_date));
         <div class="panel__forms">
 
           <!-- Login Form -->
-          <form class="form panel__login-form" id="login-form" method="post" action="src/login.php">
+          <form class="form panel__login-form" id="login-form" method="post" action="login.php">
             <div class="form__row">
               <input type="text" id="email" class="form__input" name="login-mail" data-validation="email" data-error="Invalid email address." required>
               <span class="form__bar"></span>
@@ -187,7 +187,7 @@ $processed_release_date = date("d F,Y", strtotime($raw_release_date));
           </form>
 
           <!-- Register Form -->
-          <form class="form panel__register-form" id="register-form" method="post" action="src/add_user.php">
+          <form class="form panel__register-form" id="register-form" method="post" action="add_user.php">
             <div class="form__row">
               <input type="text" id="register-username" class="form__input" name="register-username" data-validation="length" data-validation-length="5-15" data-error="username must contain 5-15 characters" required>
               <span class="form__bar"></span>

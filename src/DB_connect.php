@@ -1,10 +1,13 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$DBname = "MedokaDB";
+$servername = getenv('DB_HOST') ?: 'localhost';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASSWORD') ?: '';
+$dbname = getenv('DB_NAME') ?: 'MedokaDB';
+/*
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-$conn = mysqli_connect($servername, $username, $password,$DBname);
-if ( mysqli_connect_errno() ) {
-	echo('Failed to connect to MySQL: ' . mysqli_connect_error());
+if (mysqli_connect_errno()) {
+    echo 'Failed to connect to MySQL: ' . mysqli_connect_error();
 }
+?>
+*/
