@@ -13,7 +13,7 @@ RUN apt-get update && \
         libonig-dev \
         libxml2-dev && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) gd pdo pdo_mysql mbstring zip exif pcntl
+    docker-php-ext-install -j$(nproc) gd pdo pdo_mysql mbstring zip exif pcntl mysqli
 
 # Enable Apache mod_rewrite for clean URLs
 RUN a2enmod rewrite
