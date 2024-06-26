@@ -29,6 +29,9 @@ COPY src/ /var/www/html/
 COPY styles/ /var/www/html/styles/
 COPY main.js /var/www/html/
 
+# Copy the game images to the working directory
+COPY game_images/ /var/www/html/game_images/
+
 # Copy custom Apache configuration
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
