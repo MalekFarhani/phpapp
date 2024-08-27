@@ -25,10 +25,13 @@ steps:
 - script: |
     echo "Step 3: Pushing the Docker image to ACR"
     TOKEN=$(az acr login --name acrmlk --expose-token --output tsv --query accessToken)
+  displayName: 'token'
+- script: | 
     sudo docker login acrmlk.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password $TOKEN
+  displayName: 'login'
+- script: | 
     docker push $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(IMAGE_TAG)
-  displayName: 'Docker Push'
-
+  displayName: 'push'
 - script: |
     echo "Step 4: Verifying the image in ACR"
     az acr repository show-tags --name $(ACR_NAME) --repository $(IMAGE_NAME) --query "contains(@, '$(IMAGE_TAG)')"
