@@ -1,0 +1,35 @@
+trigger:
+- main  # Adjust this to your default branch or the branch you want to trigger the pipeline
+
+pool:
+  name: 'gitopsmlk'  # The name of your self-hosted agent pool
+
+variables:
+  GIT_REPO_URL: 'https://github.com/MalekFarhani/phpapp.git'  # URL of your Git repository
+  ACR_NAME: 'acrmlk'  # Your Azure Container Registry name
+  IMAGE_NAME: 'phpapp'  # The name you want for your Docker image
+  IMAGE_TAG: '$(Build.BuildId)'  # Unique tag for your Docker image
+
+steps:
+- script: |
+    echo "Step 1: Cloning the repository"
+    git clone $(GIT_REPO_URL)
+  displayName: 'Git Clone'
+
+- script: |
+    echo "Step 2: Building the Docker image"
+    cd phpapp  # Navigate to the directory where the Dockerfile is located
+    sudo docker build -t $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(IMAGE_TAG) .
+  displayName: 'Docker Build'
+
+- script: |
+    echo "Step 3: Pushing the Docker image to ACR"
+    TOKEN=$(az acr login --name acrmlk --expose-token --output tsv --query accessToken)
+    sudo docker login acrmlk.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password $TOKEN
+    docker push $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(IMAGE_TAG)
+  displayName: 'Docker Push'
+
+- script: |
+    echo "Step 4: Verifying the image in ACR"
+    az acr repository show-tags --name $(ACR_NAME) --repository $(IMAGE_NAME) --query "contains(@, '$(IMAGE_TAG)')"
+  displayName: 'Verify Image in ACR'
