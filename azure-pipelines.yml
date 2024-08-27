@@ -22,12 +22,8 @@ steps:
     sudo docker build -t $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(IMAGE_TAG) .
   displayName: 'Docker Build'
 
-- script: |
-    echo "Step 3: Pushing the Docker image to ACR"
-    TOKEN=$(az acr login --name acrmlk --expose-token --output tsv --query accessToken)
-  displayName: 'token'
 - script: | 
-    sudo docker login acrmlk.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password $TOKEN
+    sudo docker login acrmlk.azurecr.io --username 00000000-0000-0000-0000-000000000000 --password eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlhLWUw6S1pSWDpRNU5UOlFKTk86RFRCVzpSM1dXOjNKWVM6NE9EWTpFVFJYOlk3VDI6WkY1WToyQUZNIn0.eyJqdGkiOiI0MjhjMTIxMi05ZGFlLTRmNjktYTk4OS1mMjRlMGE4NGNkYjkiLCJzdWIiOiIyNmViYTRmMi0xMWZkLTRmZDctYjZkOC1mZTFkYTU1YjlmZDkiLCJuYmYiOjE3MjQ3NjI2NTQsImV4cCI6MTcyNDc3NDM1NCwiaWF0IjoxNzI0NzYyNjU0LCJpc3MiOiJBenVyZSBDb250YWluZXIgUmVnaXN0cnkiLCJhdWQiOiJhY3JtbGsuYXp1cmVjci5pbyIsInZlcnNpb24iOiIxLjAiLCJyaWQiOiJmODY0YzNkMmJjYWE0YTI2YjYxNmFmYzE5ZWM1YWRkNyIsImdyYW50X3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiYXBwaWQiOiI5NTkzOWFkZi04OTRkLTRiM2QtODVmNi0zYmY0OWI2YTkzYjQiLCJ0ZW5hbnQiOiI5NzQwNDA3Mi0xNWJjLTRiZTItYWFkOS1jNWQyYjA3NTQxZWIiLCJwZXJtaXNzaW9ucyI6eyJhY3Rpb25zIjpbInJlYWQiLCJ3cml0ZSIsImRlbGV0ZSIsIm1ldGFkYXRhL3JlYWQiLCJtZXRhZGF0YS93cml0ZSIsImRlbGV0ZWQvcmVhZCIsImRlbGV0ZWQvcmVzdG9yZS9hY3Rpb24iXX0sInJvbGVzIjpbXX0.kbZejqNKEBygsXZRM8yX_VNuP9cBB3BZcuhHIsGKQVN0GCQG59qDnp0Qvi_TulJSKC5GceOV2YDxKFxyXJAfqYh_tOL2ePGvZQheGFN0iowyo3RA96JVYYa1vVYKNYdIsBMkvuLOszJ7COoDtxE-PEVL-XsGEryM7c-BqT2XymPjU4DZUG2slxXhdCQ6O1x-xOkeJqNaqXUH4iOE825LuAXBEHqaO4knKtmx3pr7_E5PJWJNWltYY25Jx8SL_7rUwXMHrtziUMZiTo-lPjQ3MqbDX_v2Q_vjN026rKGtT4CfaXGj1dNh84seh46mwIJ6dNuCBqBJrDoj7WivIwvWHw
   displayName: 'login'
 - script: | 
     docker push $(ACR_NAME).azurecr.io/$(IMAGE_NAME):$(IMAGE_TAG)
